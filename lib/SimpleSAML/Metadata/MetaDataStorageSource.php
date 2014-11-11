@@ -68,6 +68,8 @@ abstract class SimpleSAML_Metadata_MetaDataStorageSource {
 				return new SimpleSAML_Metadata_MetaDataStorageHandlerDynamicXML($sourceConfig);
 			case 'serialize':
 				return new SimpleSAML_Metadata_MetaDataStorageHandlerSerialize($sourceConfig);
+			case 'sql':
+				return new SimpleSAML_Metadata_MetaDataStorageHandlerSQL($sourceConfig);
 			default:
 				throw new Exception('Invalid metadata source type: "' . $type . '".');
 		}

@@ -62,6 +62,7 @@ class SimpleSAML_Store_SQL extends SimpleSAML_Store {
 
 		$this->initTableVersionTable();
 		$this->initKVTable();
+        $this->initMetadataTable();
 	}
 
 
@@ -104,6 +105,19 @@ class SimpleSAML_Store_SQL extends SimpleSAML_Store {
 		$this->setTableVersion('kvstore', 1);
 	}
 
+    /**
+     * Initialize metadata storing table
+     */
+    private function initMetadataTable(){
+    
+	    if ($this->getTableVersion('metadatastore') === 1) {
+	        /* Table initialized. */
+	        return;
+	    }
+       	$query = 'CREATE TABLE ' . $this->prefix . '_metadatastore (_set VARCHAR(30) NOT NULL, _entity VARCHAR(255) NOT NULL, _value TEXT NOT NULL, PRIMARY KEY (_entity, _set))';
+		$this->pdo->exec($query);
+        $this->setTableVersion('metadatastore', 1);
+    }
 
 	/**
 	 * Get table version.
